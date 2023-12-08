@@ -1,0 +1,51 @@
+---
+title: "Homework 6"
+author: "Andrew Quach"
+date: "2023-10-22"
+output: pdf_document
+---
+
+#Question 6: 
+
+```{r}
+#Load bio3d
+
+library(bio3d)
+
+#Create code that works with any input of protein structures
+
+protein_plot <- function(pdb_file, chain_id = "A") {
+  
+  # Read.pdb will provide information of the PDB file used to read in the function
+  protein <- read.pdb(pdb_file)
+  
+  #Trim.pdb will extract subset from protein such as the specifc chains
+  protein_chain <- trim.pdb(protein, chain = chain_id, elety = "CA")
+  
+  #Make b_factors into a vector that has B_factor values for each atom in the specified chain 
+  b_factors <- protein_chain$atom$b
+  
+  #Generate line plot with b_factors vector with Bfactor as the y-axis
+  plotb3(b_factors, sse = protein_chain, typ = "l", ylab = "Bfactor")
+}
+```
+
+
+
+
+```{r}
+#Test code with different proteins
+protein_plot("1E4Y")
+```
+
+```{r}
+#Test code with different proteins
+protein_plot("1AKE")
+```
+
+```{r}
+#Test code with different proteins
+protein_plot("4AKE")
+```
+
+
